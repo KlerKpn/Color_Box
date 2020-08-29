@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+</head>
+<body>
+    <style>
+        .btns{
+           border: 1px solid #ccc;
+           padding: 10px;
+           font-size: 20px;
+        }
+        button{
+            font-size: 20px;
+            background: #f2eef6;
+        }
+        .target{
+            width: 200px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background:rgb(255, 255, 255)
+
+        }
+        .active{
+            background: rgb(89, 208, 238);
+            color: white;
+        }
+        input[type='range'] {
+            overflow: hidden;
+            -webkit-appearance: none;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+        }
+        input[type='range']:focus{
+            outline: none;
+        }
+        #red::-webkit-slider-thumb {
+            width: 20px;
+            -webkit-appearance: none;
+            height: 20px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: -80px 0 0 80px red;
+        }
+        #green::-webkit-slider-thumb {
+            width: 20px;
+            -webkit-appearance: none;
+            height: 20px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: -80px 0 0 80px rgb(14, 153, 14);
+        }
+        #blue::-webkit-slider-thumb {
+            width: 20px;
+            -webkit-appearance: none;
+            height: 20px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: -80px 0 0 80px rgb(64, 47, 224);
+        }
+    </style>
+
+    <div data-role="page">
+        <div class="btns">
+            select 
+            <button class="active" id="color">color</button>
+            <button id="backgroundColor">background-color</button>
+            </div>
+        <div style="display: flex;">
+            <div class="sliders">
+                <div>
+                    <input value="255" type="range" min="0" max="255" id="red">
+                </div>
+                <div>
+                    <input value="255" type="range" min="0" max="255" id="green">
+                </div>
+                <div>
+                    <input value="255" type="range" min="0" max="255" id="blue">
+                </div>
+            </div>
+            <div class="target">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis, vitae soluta.</div>
+        </div> 
+    </div>
+    
+    <script type="text/javascript">
+        let current = 'color'
+
+        let back = {red:255, green: 255, blue:255}
+        let color = {red:0, green:0, blue:0}
+
+        $('button').on('click', function(el){
+            let val = $(this).text()
+            if(val !== 'color'){
+                $('#color').removeClass('active')
+                $('#backgroundColor').addClass('active') 
+                current = 'background-color'
+                updateBack()
+                return
+            }else{
+                $('#color').addClass('active')
+                $('#backgroundColor').removeClass('active') 
+                current = 'color'
+                updateColor()
+            }   
+        })
+        
+        $(document).ready(()=>{
+            console.log('fdf');
+            $('.target').css('color', `rgb(${color.red},${color.green},${color.blue});`)
+            $('.target').css('background-color', `rgb(${back.red},${back.green},${back.blue});`)
+            updateColor()
+        })
+            $("#red").on("input", function(){
+                color.red = $(this).val();
+                $('.target').css(current, `rgb(${color.red},${color.green},${color.blue});`)
+            })
+            $("#green").on("input", function(){
+                color.green = $(this).val();
+                $('.target').css(current, `rgb(${color.red},${color.green},${color.blue});`)
+            })
+            $("#blue").on("input", function(){
+                color.blue = $(this).val();
+                $('.target').css(current, `rgb(${color.red},${color.green},${color.blue});`)
+            })
+            function updateColor(){
+                $('#red').val(color.red)
+                $('#green').val(color.green)
+                $('#blue').val(color.blue)
+            }
+            function updateBack(){
+                $('#red').val(back.red)
+                $('#green').val(back.green)
+                $('#blue').val(back.blue)
+            }
+        </script>
+</body>
+</html>
+
