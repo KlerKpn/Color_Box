@@ -90,9 +90,9 @@
     
     <script type="text/javascript">
         let current = 'color'
-
         let back = {red:255, green: 255, blue:255}
         let color = {red:0, green:0, blue:0}
+        let elem = color
 
         $('button').on('click', function(el){
             let val = $(this).text()
@@ -101,32 +101,34 @@
                 $('#backgroundColor').addClass('active') 
                 current = 'background-color'
                 updateBack()
+                elem = back
                 return
             }else{
                 $('#color').addClass('active')
                 $('#backgroundColor').removeClass('active') 
                 current = 'color'
                 updateColor()
+                elem = color
             }   
         })
         
         $(document).ready(()=>{
-            console.log('fdf');
             $('.target').css('color', `rgb(${color.red},${color.green},${color.blue});`)
             $('.target').css('background-color', `rgb(${back.red},${back.green},${back.blue});`)
             updateColor()
         })
+        
             $("#red").on("input", function(){
-                color.red = $(this).val();
-                $('.target').css(current, `rgb(${color.red},${color.green},${color.blue});`)
+                elem.red = $(this).val();
+                $('.target').css(current, `rgb(${elem.red},${elem.green},${elem.blue});`)
             })
             $("#green").on("input", function(){
-                color.green = $(this).val();
-                $('.target').css(current, `rgb(${color.red},${color.green},${color.blue});`)
+                elem.green = $(this).val();
+                $('.target').css(current, `rgb(${elem.red},${elem.green},${elem.blue});`)
             })
             $("#blue").on("input", function(){
-                color.blue = $(this).val();
-                $('.target').css(current, `rgb(${color.red},${color.green},${color.blue});`)
+                elem.blue = $(this).val();
+                $('.target').css(current, `rgb(${elem.red},${elem.green},${elem.blue});`)
             })
             function updateColor(){
                 $('#red').val(color.red)
